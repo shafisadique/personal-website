@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="header" [ngClass]="{'hidden': isHidden}">
+    <div class="container">
+      <div class="header-text">
+        <ul class="header-list">
+          <li [ngClass]="{'active': activeTab === 'HOME'}" (click)="scrollToSection('home')">
+            <i class="fa fa-home"></i> HOME
+          </li>
+          <li [ngClass]="{'active': activeTab === 'EXPERIENCE'}" (click)="scrollToSection('experience')">
+            <i class="fa fa-briefcase"></i> EXPERIENCE
+          </li>
+          <li [ngClass]="{'active': activeTab === 'PROJECTS'}" (click)="scrollToSection('project')">
+            <i class="fa fa-folder-open"></i> PROJECTS
+          </li>
+          <li [ngClass]="{'active': activeTab === 'SKILLS'}" (click)="scrollToSection('skills')">
+            <i class="fa fa-tools"></i> SKILLS
+          </li>
+          <li [ngClass]="{'active': activeTab === 'CONTACT'}" (click)="scrollToSection('contact')">
+            <i class="fa fa-envelope"></i> CONTACT
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

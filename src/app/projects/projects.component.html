@@ -1,0 +1,127 @@
+<div class="projects" id="projects">
+  <h2 class="heading">My <span>Projects</span></h2>
+
+  <div class="tab-content">
+  <div class="project-card" *ngFor="let project of gitProjects">
+    
+    <!-- Top Row: Category + Featured -->
+    <div class="project-header">
+      <span class="category">{{ project.category }}</span>
+      <span *ngIf="project.featured" class="featured">
+        <i class="fas fa-star"></i> Featured
+      </span>
+    </div>
+    
+
+    <!-- Title & Description -->
+    <h3>{{ project.title }}</h3>
+      <ul class="project-description" *ngIf="project.descriptionList; else textDescription">
+        <li *ngFor="let point of project.descriptionList">
+          <i class="fas fa-check-circle"></i> {{ point }}
+        </li>
+      </ul>
+      <ng-template #textDescription>
+        <p>{{ project.description }}</p>
+      </ng-template>
+    <!-- Tags -->
+    <div class="project-tags">
+      <span class="tag" *ngFor="let tech of project.technologies">{{ tech }}</span>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="project-stats">
+      <span><i class="fas fa-star"></i> {{ project.stars }}</span>
+      <span><i class="fas fa-code-branch"></i> {{ project.forks }}</span>
+      <span><i class="fas fa-eye"></i> {{ project.views }}</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="project-actions">
+      <a [href]="project.codeLink" target="_blank" class="btn code-btn">Code</a>
+      <a [href]="project.demoLink" target="_blank" class="btn demo-btn">Demo</a>
+    </div>
+  </div>
+</div>
+
+
+  <div class="projects-row">
+    <div class="projects-column">
+      <ul class="projects-tabs">
+        <li
+          class="projects-title"
+          *ngFor="let tab of tabs; let i = index"
+          (click)="selectTab(i)"
+          [class.active]="i === selectedTab"
+        >
+          {{ tab }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Project Cards -->
+  <div class="tab-content">
+    <div
+      class="card"
+      *ngFor="let project of filteredProjects; let i = index"
+      (click)="openPopup(project)"
+    >
+      <video width="100%" height="140" autoplay muted loop class="project-video">
+        <source [src]="project.videoSrc" type="video/webm">
+      </video>
+      <h3>{{ project.title }}</h3>
+      <p>{{ project.description }}</p>
+    </div>
+  </div>
+
+  <!-- Popup for Project Details -->
+  <div class="popup" [class.active]="showPopup" (click)="closePopup($event)">
+    <div class="popup-content">
+      <!-- Close Button -->
+      <span class="close-btn" (click)="closePopup($event)">×</span>
+
+      <!-- Conditional Content: Video or Slider -->
+      <div class="popup-video-container">
+        <ng-container *ngIf="selectedProject?.title === 'Travel Smart' || selectedProject?.title === 'Probobet Website'|| selectedProject?.title === 'Game Admin Panel'; else videoContent">
+          <!-- Image Slider for Travel Smart and Probobet Website -->
+          <div class="slider-container">
+            <img
+              [src]="selectedProject.images[currentImageIndex]"
+              alt="{{ selectedProject.title }} Slide"
+              class="slider-image"
+            />
+            <button
+              class="slider-btn prev-btn"
+              (click)="prevImage()"
+              [disabled]="currentImageIndex === 0"
+            >
+              ❮
+            </button>
+            <button
+              class="slider-btn next-btn"
+              (click)="nextImage()"
+              [disabled]="currentImageIndex === selectedProject?.images.length - 1"
+            >
+              ❯
+            </button>
+            <div class="slider-counter">
+              {{ currentImageIndex + 1 }} / {{ selectedProject?.images.length }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #videoContent>
+          <!-- Video for Other Projects -->
+          <video width="100%" height="300" autoplay muted loop>
+            <source [src]="selectedProject?.videoSrc" type="video/webm">
+          </video>
+        </ng-template>
+      </div>
+
+      <!-- Project Details -->
+      <div class="popup-details">
+        <h3>{{ selectedProject?.title }}</h3>
+        <p>{{ selectedProject?.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

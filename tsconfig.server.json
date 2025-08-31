@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "../dist/sadique-website/server",
+    "module": "esnext",
+    "types": ["node"]
+  },
+  "files": [
+    "server.ts",
+    "src/main.server.ts"
+  ],
+  "angularCompilerOptions": {
+    "entryModule": "src/app/app.server.module#AppServerModule"
+  }
+}
